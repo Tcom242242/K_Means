@@ -10,12 +10,12 @@ require "yaml"
 #
 class K_Means
 
-  attr_accessor :datas, :cluster_num, :c_list
-  def initialize(datas: [[2, 3],[2, 8],[2, 3],[3, 5],[6, 3],[5, 3]], cluster_num: 2, dim: 2)
+  attr_accessor :datas, :k, :c_list
+  def initialize(datas: [[2, 3],[2, 8],[2, 3],[3, 5],[6, 3],[5, 3]], k: 2, dim: 2)
     @datas = datas
-    sliced_datas = @datas.each_slice(cluster_num).to_a
-    @cluster_num = cluster_num 
-    @cluster_list = @cluster_num.times.map {|n| Cluster.new(n, nil,sliced_datas[n] , dim)}
+    sliced_datas = @datas.each_slice(k).to_a
+    @k = k 
+    @cluster_list = @k.times.map {|n| Cluster.new(n, nil,sliced_datas[n] , dim)}
     @dim = dim 
   end
   
@@ -128,7 +128,7 @@ if($0 == __FILE__) then
   }
   # datas=[[10, 4],[2, 8],[7, 3],[3, 5],[6, 3],[5, 3],[2, 4],[2, 3], [1, 4], [1, 3], [6, 6], [10, 1],[1, 1], [8, 1], [1, 6], [10, 6]]
   # datas=[[2, 3],[2, 8],[2, 3],[3, 5],[6, 3],[5, 3]]
-  k_means = K_Means.new(datas: datas, cluster_num: 3, dim: dim) 
+  k_means = K_Means.new(datas: datas, k: 3, dim: dim) 
   puts "calculating..."
   k_means.fit() 
   puts "finish"
